@@ -108,6 +108,8 @@ LinkedIn-clone/
 - MongoDB (local installation or MongoDB Atlas account)
 - npm or yarn
 
+### Local Development Setup
+
 ### Backend Setup
 
 1. Navigate to the backend directory:
@@ -186,6 +188,28 @@ npm start
 ```
 
 4. Open your browser and navigate to `http://localhost:3000`
+
+---
+
+## 🚀 Deployment
+
+### Quick Deployment Guide
+
+This app can be deployed for **FREE** using:
+- **Frontend**: Vercel
+- **Backend**: Render  
+- **Database**: MongoDB Atlas
+
+See the complete **[DEPLOYMENT.md](./DEPLOYMENT.md)** guide for step-by-step instructions.
+
+### Deployment URLs
+- Frontend: Deploy to Vercel
+- Backend: Deploy to Render
+- Database: MongoDB Atlas (free tier)
+
+**Total Cost: $0/month** for basic usage! 🎉
+
+---
 
 ## API Endpoints
 

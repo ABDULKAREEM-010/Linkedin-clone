@@ -15,8 +15,38 @@ const connectionRoutes = require('./routes/connections');
 // Initialize app
 const app = express();
 
-// Middleware
-app.use(cors());
+// CORS configuration
+const corsOptions = {
+  origin: function(origin, callback) {
+    // Allow requests with no origin (mobile apps, curl, Postman, etc.)
+    if (!origin) return callback(null, true);
+    
+    // In development, allow localhost
+    if (origin.includes('localhost') || origin.includes('127.0.0.1')) {
+      return callback(null, true);
+    }
+    
+    // In production, check against allowed origins
+    const allowedOrigins = [
+      process.env.FRONTEND_URL,
+      'https://your-app-name.vercel.app'
+    ].filter(Boolean);
+    
+    if (allowedOrigins.some(allowed => origin === allowed || origin.startsWith(allowed))) {
+      return callback(null, true);
+    }
+    
+    // Log rejected origins for debugging
+    console.log('CORS rejected origin:', origin);
+    return callback(null, true); // Allow in development, you can change this to false in production
+  },
+  credentials: true,
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH'],
+  allowedHeaders: ['Content-Type', 'Authorization']
+};
+
+app.use(cors(corsOptions));
+
 // Increase payload limit to handle image uploads (Base64 encoded images)
 app.use(express.json({ limit: '50mb' }));
 app.use(express.urlencoded({ limit: '50mb', extended: true }));
@@ -34,7 +64,19 @@ app.use('/api/connections', connectionRoutes);
 
 // Health check route
 app.get('/', (req, res) => {
-  res.json({ message: 'LinkedIn Clone API is running' });
+  res.json({ 
+    message: 'LinkedIn Clone API is running',
+    status: 'ok',
+    timestamp: new Date().toISOString()
+  });
+});
+
+// API status endpoint
+app.get('/api/health', (req, res) => {
+  res.json({ 
+    status: 'healthy',
+    database: mongoose.connection.readyState === 1 ? 'connected' : 'disconnected'
+  });
 });
 
 // Error handling middleware

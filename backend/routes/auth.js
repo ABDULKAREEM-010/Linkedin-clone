@@ -59,8 +59,9 @@ router.post('/register', [
       }
     });
   } catch (error) {
-    console.error(error);
-    res.status(500).json({ message: 'Server error' });
+    console.error('Register error:', error);
+    console.error('Error details:', error.message);
+    res.status(500).json({ message: 'Server error', error: error.message });
   }
 });
 
@@ -110,8 +111,9 @@ router.post('/login', [
       }
     });
   } catch (error) {
-    console.error(error);
-    res.status(500).json({ message: 'Server error' });
+    console.error('Login error:', error);
+    console.error('Error details:', error.message);
+    res.status(500).json({ message: 'Server error', error: error.message });
   }
 });
 
