@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const API_BASE_URL = process.env.REACT_APP_API_URL ;
+const API_BASE_URL = process.env.REACT_APP_API_URL || 'https://linkedin-clone-8hbi.onrender.com';
 
 // Create axios instance
 const axiosInstance = axios.create({

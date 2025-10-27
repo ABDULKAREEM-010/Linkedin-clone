@@ -15,15 +15,27 @@ const connectionRoutes = require('./routes/connections');
 // Initialize app
 const app = express();
 
-// Simple CORS - Allow all origins (for debugging)
+const allowedOrigins = [
+  'https://linkedin-clone-neon-one.vercel.app',
+  'http://localhost:3000' // for local dev
+];
+
 app.use(cors({
-  origin: '*', // Allow all origins
-  credentials: false, // Can't use credentials with origin: '*'
+  origin: (origin, callback) => {
+    if (!origin || allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With', 'Accept'],
+  credentials: true,
 }));
 
-console.log('⚠️ CORS: Allowing all origins');
+// Explicitly handle OPTIONS preflight
+app.options('*', cors());
+
 
 // Increase payload limit to handle image uploads (Base64 encoded images)
 app.use(express.json({ limit: '50mb' }));
