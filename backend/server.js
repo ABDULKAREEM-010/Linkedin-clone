@@ -29,7 +29,7 @@ const corsOptions = {
     // In production, check against allowed origins
     const allowedOrigins = [
       process.env.FRONTEND_URL,
-      'https://your-app-name.vercel.app'
+      process.env.FRONTEND_DEPLOYED_URL
     ].filter(Boolean);
     
     if (allowedOrigins.some(allowed => origin === allowed || origin.startsWith(allowed))) {
