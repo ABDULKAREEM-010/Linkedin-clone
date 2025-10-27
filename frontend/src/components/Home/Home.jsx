@@ -30,13 +30,17 @@ function Home() {
         headers: { Authorization: `Bearer ${token}` }
       });
       
-      console.log('Fetched posts:', response.data.length);
-      setPosts(response.data);
+      console.log('Fetched posts:', response.data);
+      // Handle both array and object responses
+      const postsData = Array.isArray(response.data) ? response.data : (response.data.posts || []);
+      console.log('Posts array:', postsData.length);
+      setPosts(postsData);
       setLoading(false);
     } catch (error) {
       console.error('Error fetching posts:', error);
       console.error('Error response:', error.response?.data);
       setLoading(false);
+      showNotification('Failed to load posts', 'error');
     }
   };
 
