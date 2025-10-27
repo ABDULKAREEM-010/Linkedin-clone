@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import axios from 'axios';
+import axiosInstance from '../../config/axios';
+import { ENDPOINTS } from '../../config/api';
 import './Auth.css';
 
 function Register({ onLogin }) {
@@ -27,7 +28,7 @@ function Register({ onLogin }) {
     setLoading(true);
 
     try {
-      const response = await axios.post('/api/auth/register', formData);
+      const response = await axiosInstance.post(ENDPOINTS.AUTH.REGISTER, formData);
       localStorage.setItem('user', JSON.stringify(response.data.user));
       onLogin(response.data.token);
       navigate('/');

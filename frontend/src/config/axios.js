@@ -6,6 +6,7 @@ const API_BASE_URL = process.env.REACT_APP_API_URL || 'https://linkedin-clone-8h
 const axiosInstance = axios.create({
   baseURL: API_BASE_URL,
   timeout: 30000, // 30 seconds
+  withCredentials: true,
   headers: {
     'Content-Type': 'application/json',
   },
