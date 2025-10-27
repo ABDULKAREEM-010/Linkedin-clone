@@ -34,6 +34,14 @@ mongoose.connect(process.env.MONGODB_URI)
 .then(() => console.log('MongoDB connected successfully'))
 .catch((err) => console.error('MongoDB connection error:', err));
 
+// Debug middleware to log all requests
+app.use((req, res, next) => {
+  console.log(`📨 ${req.method} ${req.url} - Origin: ${req.get('Origin')} - User-Agent: ${req.get('User-Agent')}`);
+  console.log('📋 Headers:', req.headers);
+  console.log('📦 Body:', req.body);
+  next();
+});
+
 // Routes
 app.use('/api/auth', authRoutes);
 app.use('/api/users', userRoutes);
@@ -54,6 +62,20 @@ app.get('/api/health', (req, res) => {
   res.json({ 
     status: 'healthy',
     database: mongoose.connection.readyState === 1 ? 'connected' : 'disconnected'
+  });
+});
+
+// Catch-all route for debugging
+app.use('*', (req, res) => {
+  console.log(`❌ Unmatched route: ${req.method} ${req.originalUrl}`);
+  res.status(404).json({ 
+    message: `Route ${req.method} ${req.originalUrl} not found`,
+    availableRoutes: [
+      'GET /',
+      'GET /api/health',
+      'POST /api/auth/login',
+      'POST /api/auth/register'
+    ]
   });
 });
 
