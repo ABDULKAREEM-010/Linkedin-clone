@@ -16,36 +16,42 @@ const connectionRoutes = require('./routes/connections');
 const app = express();
 
 // CORS configuration
+const allowedOrigins = [
+  'http://localhost:3000',
+  'http://127.0.0.1:3000',
+  'https://linkedin-clone-neon-one.vercel.app',
+  process.env.FRONTEND_URL
+].filter(Boolean);
+
 const corsOptions = {
   origin: function(origin, callback) {
     // Allow requests with no origin (mobile apps, curl, Postman, etc.)
     if (!origin) return callback(null, true);
     
-    // In development, allow localhost
+    // Check if origin is in allowed list
+    if (allowedOrigins.indexOf(origin) !== -1) {
+      return callback(null, true);
+    }
+    
+    // Allow any localhost or 127.0.0.1 for development
     if (origin.includes('localhost') || origin.includes('127.0.0.1')) {
       return callback(null, true);
     }
     
-    // In production, check against allowed origins
-    const allowedOrigins = [
-      process.env.FRONTEND_URL,
-      process.env.FRONTEND_DEPLOYED_URL
-    ].filter(Boolean);
-    
-    if (allowedOrigins.some(allowed => origin === allowed || origin.startsWith(allowed))) {
-      return callback(null, true);
-    }
-    
-    // Log rejected origins for debugging
     console.log('CORS rejected origin:', origin);
-    return callback(null, true); // Allow in development, you can change this to false in production
+    console.log('Allowed origins:', allowedOrigins);
+    return callback(null, true); // Temporarily allow all for debugging
   },
   credentials: true,
-  methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH'],
-  allowedHeaders: ['Content-Type', 'Authorization']
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With'],
+  optionsSuccessStatus: 200
 };
 
 app.use(cors(corsOptions));
+
+// Handle preflight requests
+app.options('*', cors(corsOptions));
 
 // Increase payload limit to handle image uploads (Base64 encoded images)
 app.use(express.json({ limit: '50mb' }));
