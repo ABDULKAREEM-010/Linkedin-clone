@@ -1,0 +1,13 @@
+.App {
+  min-height: 100vh;
+  background-color: #f3f2ef;
+}
+
+.loading {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  font-size: 1.5rem;
+  color: #0a66c2;
+}

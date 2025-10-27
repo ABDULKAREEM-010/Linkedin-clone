@@ -1,0 +1,138 @@
+.navbar {
+  background: white;
+  border-bottom: 1px solid #ddd;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.navbar-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 20px;
+  height: 60px;
+}
+
+.navbar-left {
+  display: flex;
+  align-items: center;
+}
+
+.navbar-logo h2 {
+  color: #0a66c2;
+  font-size: 1.5rem;
+  font-weight: 700;
+}
+
+.navbar-center {
+  display: flex;
+  gap: 20px;
+  flex: 1;
+  justify-content: center;
+}
+
+.navbar-link {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  color: #666;
+  padding: 8px 12px;
+  border-radius: 4px;
+  transition: color 0.3s, background-color 0.3s;
+}
+
+.navbar-link:hover {
+  color: #0a66c2;
+  background-color: #f3f2ef;
+}
+
+.navbar-link .icon {
+  font-size: 1.3rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.navbar-link span:not(.icon) {
+  font-size: 0.8rem;
+  font-weight: 500;
+}
+
+.navbar-right {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.navbar-profile {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  color: #666;
+  padding: 8px 12px;
+  border-radius: 4px;
+  transition: color 0.3s, background-color 0.3s;
+}
+
+.navbar-profile:hover {
+  color: #0a66c2;
+  background-color: #f3f2ef;
+}
+
+.navbar-avatar {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background-color: #0a66c2;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.8rem;
+  font-weight: 600;
+  overflow: hidden;
+}
+
+.navbar-avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.navbar-username {
+  font-size: 0.8rem;
+  font-weight: 500;
+}
+
+.logout-button {
+  background-color: transparent;
+  border: 1px solid #0a66c2;
+  color: #0a66c2;
+  padding: 8px 16px;
+  border-radius: 20px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.logout-button:hover {
+  background-color: #0a66c2;
+  color: white;
+}
+
+@media (max-width: 768px) {
+  .navbar-link span:not(.icon),
+  .navbar-username {
+    display: none;
+  }
+
+  .navbar-center {
+    gap: 10px;
+  }
+}
