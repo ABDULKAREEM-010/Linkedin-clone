@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import axios from 'axios';
+import axios from '../../config/axios';
 import { IoCheckmarkCircle, IoWarning } from 'react-icons/io5';
 import { MdLocationOn } from 'react-icons/md';
 import { BsThreeDots } from 'react-icons/bs';
