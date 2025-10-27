@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import axios from 'axios';
+import axios from '../../config/axios';
 import { AiOutlineLike, AiFillLike } from 'react-icons/ai';
 import { FaRegComment } from 'react-icons/fa';
 import { BsThreeDots } from 'react-icons/bs';
